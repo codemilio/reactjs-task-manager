@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { TaskItem } from "./components/TaskItem";
+import { useState } from "react"
+import { TaskItem } from "./components/TaskItem"
 import { PlusCircle } from '@phosphor-icons/react'
-import { TextField } from "./components/TextField";
-import { Badge } from "./components/Badge";
-import { ITask } from "./utils/types";
+import { TextField } from "./components/TextField"
+import { Badge } from "./components/Badge"
+import { ITask } from "./utils/types"
 
 export function App() {
 
@@ -34,7 +34,8 @@ export function App() {
       isChecked: true
     },
   ])
-  const [newTaks, setNewTask] = useState<ITask>({
+  
+  const [newTask, setNewTask] = useState<ITask>({
     title: '',
     time: 0
   })
@@ -49,6 +50,10 @@ export function App() {
 
   const handleClick = (e: React.MouseEvent<HTMLInputElement>) => {
     e.currentTarget.select()
+  }
+
+  const handleCreateItem = () => {
+    setTaskList((prev) => [...prev, newTask])
   }
   
   return (
@@ -89,7 +94,10 @@ export function App() {
       </header>
       <div className="w-2/3 h-14 flex mt-[calc(-0px-1.75rem)] mx-auto gap-x-4">
         <TextField placeholder="Adicione uma nova tarefa..."/>
-        <button className="flex h-full items-center justify-center gap-2 bg-secondary-dark focus:outline-none hover:bg-secondary p-4 rounded-lg text-sm font-bold text-base-100 transition-colors delay-75">
+        <button 
+          className="flex h-full items-center justify-center gap-2 bg-secondary-dark focus:outline-none hover:bg-secondary p-4 rounded-lg text-sm font-bold text-base-100 transition-colors delay-75"
+          onClick={handleCreateItem}
+        >
           Criar
           <PlusCircle size={20} />
         </button>
