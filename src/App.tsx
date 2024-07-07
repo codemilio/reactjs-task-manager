@@ -28,6 +28,9 @@ export function App() {
     }
   })
 
+  const createdTasks = taskList.length
+  const completedTasks = taskList.filter(item => item.isChecked).length
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
 
@@ -57,6 +60,13 @@ export function App() {
   const handleDeleteItem = (id: string) => {
     const tasksWithoutItemDeleted = taskList.filter(item => item.id !== id) 
     setTaskList(tasksWithoutItemDeleted)
+  }
+
+  const handleCheckItem = (id: string) => {
+    setTaskList((prev) => prev.map(item => item.id === id ? {
+      ...item,
+      isChecked: !item.isChecked
+    } : item ))
   }
 
   return (
@@ -110,15 +120,15 @@ export function App() {
         <div className="flex justify-between font-bold">
           <span className="flex gap-x-2 text-primary"> 
             Tarefas criadas 
-            <Badge value="5"/>
+            <Badge value={createdTasks.toString()}/>
           </span>
           <span className="flex gap-x-3 text-secondary"> 
             Concluídas 
-            <Badge value="0 de 5"/>
+            <Badge value={`${completedTasks} de ${createdTasks}`} />
           </span>
         </div>
         <div className="flex flex-col gap-y-2">
-          {taskList.map(data => <TaskItem {...data} onDeleteTask={handleDeleteItem} />)}
+          {taskList.map(data => <TaskItem {...data} onDeleteTask={handleDeleteItem} onCheckTask={handleCheckItem} />)}
         </div>
         <div className="flex justify-between font-bold">
           <span className="text-primary"> Tempo estimado </span>
