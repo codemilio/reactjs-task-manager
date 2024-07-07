@@ -3,10 +3,15 @@ import { ITask } from "../../utils/types"
 import clsx from "clsx"
 
 type Props = ITask & {
-  id: string 
+  onDeleteTask: (id: string) => void
 }
 
-export function TaskItem({ id, isChecked = false, title }: Props) {
+export function TaskItem({ id, isChecked = false, title, onDeleteTask }: Props) {
+  const handleDelete = () => {
+    console.log(id)
+    onDeleteTask(id)
+  }
+
   return (
     <div className={clsx("flex flex-row justify-between items-center bg-base-500 text-base-100 rounded-lg p-4 border border-base-400", {
       "text-base-300 line-through border-0": isChecked
@@ -21,7 +26,7 @@ export function TaskItem({ id, isChecked = false, title }: Props) {
           />
         <label htmlFor={id}> {title} </label>
       </div>
-      <button className="text-base-300 bg-transparent outline-none hover:text-danger transition-colors delay-75">
+      <button className="text-base-300 bg-transparent outline-none hover:text-danger transition-colors delay-75" onClick={handleDelete}>
         <Trash className="end"/>
       </button>
     </div>

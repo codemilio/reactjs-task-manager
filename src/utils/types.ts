@@ -1,6 +1,10 @@
 
 export interface ITask {
+  id: string
   title: string 
-  time: number
+  time: {
+    hours: number 
+    minutes: number 
+  }
   isChecked?: boolean 
 }
