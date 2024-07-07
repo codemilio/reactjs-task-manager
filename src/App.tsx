@@ -1,9 +1,45 @@
+import { useState } from "react";
 import { TaskItem } from "./components/TaskItem";
 import { PlusCircle } from '@phosphor-icons/react'
 import { TextField } from "./components/TextField";
 import { Badge } from "./components/Badge";
+import { ITask } from "./utils/types";
 
 export function App() {
+
+  const [taskList, setTaskList] = useState<ITask[]>([
+    {
+      title: 'Minha tarefa',
+      time: 1111,
+      isChecked: false
+    },
+    {
+      title: 'Minha tarefa',
+      time: 1111,
+      isChecked: true
+    },
+    {
+      title: 'Minha tarefa',
+      time: 1111,
+      isChecked: true
+    },
+    {
+      title: 'Minha tarefa',
+      time: 1111,
+      isChecked: true
+    },
+    {
+      title: 'Minha tarefa',
+      time: 1111,
+      isChecked: true
+    },
+  ])
+  const [newTaks, setNewTask] = useState<ITask>({
+    title: '',
+    time: 0
+  })
+
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     const newValue = value.replace(/\D/g, '')
@@ -65,13 +101,13 @@ export function App() {
             Tarefas criadas 
             <Badge value="5"/>
           </span>
-          <span className="flex gap-x-2 text-secondary"> 
+          <span className="flex gap-x-3 text-secondary"> 
             Concluídas 
             <Badge value="0 de 5"/>
           </span>
         </div>
-        <div className="flex flex-col">
-          <TaskItem id="teste" value="indo al"/>
+        <div className="flex flex-col gap-y-2">
+          {taskList.map(data => <TaskItem {...data} id="123"/>)}
         </div>
         <div className="flex justify-between font-bold">
           <span className="text-primary"> Tempo estimado </span>
